@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_05_133639) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_12_083655) do
+  create_table "group_of_servers", id: false, force: :cascade do |t|
+    t.string "id"
+    t.integer "id_server"
+    t.integer "id_group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_group_of_servers_on_id", unique: true
+  end
+
+  create_table "servers", id: false, force: :cascade do |t|
+    t.string "id"
+    t.string "ip"
+    t.string "alias"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_servers_on_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "password_digest"

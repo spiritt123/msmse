@@ -1,0 +1,2 @@
+class GroupOfServer < ApplicationRecord
+end

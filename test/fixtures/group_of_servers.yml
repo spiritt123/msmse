@@ -1,2 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+#one:
+#  id: MyString
+# id_server: 1
+# id_group: 1
