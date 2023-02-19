@@ -1,21 +1,66 @@
-<p id="alert"><%= alert %></p>
 
-<h1>Login</h1>
 
-<%= form_tag sessions_path do |form| %>
-  <div class="field">
-    <%= label_tag :name%>
-    <%= text_field_tag :name %>
-  </div>  
-  <div class="field">
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-  </div>  
-  <div class="field">
-    <%= label_tag :rank%>
-    <%= password_field_tag :rank%>
-  </div>  
-  <div class="actions">
-    <%= submit_tag "Login" %>
+<head>
+  <title>Breddit</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style type="text/css">
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      padding: 0;
+      margin: 0;
+      color: white;
+      background-color: #ac0000c4;
+    }
+    div#body{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: auto;
+    }
+    div#form{
+      width: 250px;
+      height: 250px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+    }
+
+    input{
+      min-height: 16px;
+      max-width: 20vw;
+      width: 70%;
+      height: 30px;
+    }
+    input#submit{
+        margin-left: 3px;
+    }
+
+  </style>
+</head>
+
+<div id="body">
+  <div id="form">
+
+    <h1>Login</h1>
+
+    <%= form_tag sessions_path do |form| %>
+      <div class="field">
+        <%= text_field_tag :name, value = "", required: true, :placeholder => "name" %>
+      </div>
+      <div class="field">
+        <%= password_field_tag :password, value = "", required: true, :placeholder => "password" %>
+      </div>
+      <div>
+        <%= submit_tag "Login", id:"submit" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

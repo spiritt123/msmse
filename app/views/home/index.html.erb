@@ -1,10 +1,50 @@
-<% if current_user %>
-  Logged in as <%= current_user.name%>.
-  <%= link_to "Log Out", logout_path %>
-<% else %>
-  <%= link_to "Sign Up", signup_path %> or 
-  <%= link_to "Log In", login_path %>
-<% end %><p id=”notice”><%= notice %></p>
+<head>
+  <title>Werahouse</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style type="text/css">
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    header{
+      padding: 18px;
+      margin-bottom: 50px;
+      color: white;
+      background-color: #0405509c;
+      min-height: 30px;
+      font-size: 24px;
+    }
+    p {
+      font-size: 24px;
+      background: rgba(255, 255, 255, 0.3);
+      text-align: left;
+      padding: 20px 0;
+    }
+    table{
+      margin: 0 auto;
+      min-width: 50vw;
+    }
+    td{
+      border: 2px solid;
+    }
+    #left-header{
+      background-color: #04055000;
+      padding: 0;
+      float: left;
+    }
+    #right-header{
+      background-color: #04055000;
+      padding: 0;
+      float: right;
+    }
+    a.link-logout{
+      color: white;
+    }
+  </style>
+</head>
 
-<h1>Example</h1>
-<p>Lorem ipsum …</p>
+sdfds

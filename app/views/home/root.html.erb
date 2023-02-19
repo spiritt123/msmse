@@ -1,0 +1,138 @@
+<head>
+  <title>MSMSE</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style type="text/css">
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    header{
+      padding: 18px;
+      margin-bottom: 50px;
+      color: white;
+      background-color: #ac0000c4;
+      min-height: 30px;
+      font-size: 24px;
+    }
+    input{
+      min-height: 16px;
+      max-width: 20vw;
+      width: 70%;
+      height: 30px;
+    }
+    form {
+      margin 16px 0;
+    }
+
+    p {
+      font-size: 24px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+    p.Nickname{
+      text-align: left;
+      padding: 20px 0;
+    }
+    table{
+      margin: 0 auto;
+      min-width: 90vw;
+    }
+    #left-header{
+      background-color: #04055000;
+      padding: 0;
+      float: left;
+    }
+    #right-header{
+      background-color: #04055000;
+      padding: 0;
+      float: right;
+    }
+    a.link-logout{
+      color: white;
+    }
+    #button{
+      max-width: 100px;
+    }
+    .btn{
+      max-width: 100px;
+    }
+  </style>
+
+  <script>
+    function editData(id) {
+      document.getElementById('btn_edit_' + id).style.display = "none";
+      document.getElementById('btn_exit_' + id).style.display = "";
+      document.getElementById('btn_save_' + id).style.display = "";
+      document.getElementById('text_' + id).readOnly = false;
+      document.getElementById('number_' + id).readOnly = false;
+    }
+    function exitData(id) {
+      document.getElementById('btn_edit_' + id).style.display = "";
+      document.getElementById('btn_exit_' + id).style.display = "none";
+      document.getElementById('btn_save_' + id).style.display = "none";
+      document.getElementById('text_' + id).readOnly = true;
+      document.getElementById('number_' + id).readOnly = true;
+    }
+    function init()
+    {
+      let els = document.getElementsByClassName('btn-start');
+      for (var i = 0; i < els.length; i++) {
+        els[i].style.display = "none";
+      }
+      els = document.getElementsByClassName('field_form');
+      for (var i = 0; i < els.length; i++) {
+        els[i].readOnly = true;
+      }
+    }
+    window.addEventListener('load', function () {
+      init();
+    })
+    window.onload = init();
+</script>
+</head>
+
+
+<header>
+  <p id="left-header" class="Name">
+    Username : Root
+  </p>
+  <p id="right-header" class="Name">
+    <%= link_to "Log Out", logout_path, class: "link-logout" %>
+  </p>
+</header>
+
+
+<table>
+  <caption>
+
+    <%= form_with url: "add_admin", method: :post do |form| %>
+      <div>
+        <%= text_field_tag :name, value = "", required: true, :placeholder => "name" %>
+        <%= text_field_tag :password, value = "", required: true, :placeholder => "password" %>
+        <%= number_field_tag :rank, value = "", required: true, :placeholder => "rank", in: 1...1000 %>
+        <%=form.hidden_field :father, value:"root" %>
+        <%= form.submit "Add", id:"button" %>
+      </div>
+    <% end %>
+</table>
+
+
+<table>
+  <caption> <p>Администраторы</p>
+    <% User.where(:father => "root").each do |user| %>
+
+      <%= form_with url: "change_admin", method: :post do |form| %>
+        <div>
+          <%= form.text_field :name, id:"text_#{user.id}", class:"field_form", required: true, value:user.name %>
+          <%= form.number_field :rank, id:"number_#{user.id}", class:"field_form", required: true, value:user.rank, in: 1...1000 %>
+          <%= form.submit "Save", id:"btn_save_#{user.id}", class: 'btn btn-default btn-start'%>
+          <%= button_tag "Edit", id: "btn_edit_#{user.id}", type: 'button', onclick: "editData(#{user.id})", class: 'btn btn-default' %>
+          <%= button_tag "Exit", id: "btn_exit_#{user.id}", type: 'button', onclick: "exitData(#{user.id})", class: 'btn btn-default btn-start' %>
+          <%=form.hidden_field :user_id, value:user.id %>
+        </div>
+      <% end %>
+    <% end %>
+  </table>
