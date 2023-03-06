@@ -1,0 +1,17 @@
+
+<%= form_with url: "set_lan", method: :post do |form| %>
+  <div>
+    <%= text_field_tag :ip, value = "", :placeholder => "ip" %>
+    <%= text_field_tag :mask, value = "", :placeholder => "mask" %>
+    <%= text_field_tag :gateway, value = "", :placeholder => "gateway" %>
+	<%= form.select :status, ["dhcp", "static"] %>
+    <%= form.submit "Save", id:"button1" %>
+  </div>
+<% end %>
+
+
+<% data1 = %x[cat it_lan_print.txt]%>
+
+<% data1.split(/[\n|\r]/).each do |d1| %>
+  <pre><p> <%= d1 %> </p></pre>
+<% end %>

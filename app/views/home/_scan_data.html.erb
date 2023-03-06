@@ -1,0 +1,7 @@
+
+<% @data %>
+<% File.open("scan_data.txt", 'r') { |file| @data = file.read }%>
+
+<% @data.split(/[\n|\r]/).each do |d1| %>
+  <pre><p> <%= d1 %> </p></pre>
+<% end %>

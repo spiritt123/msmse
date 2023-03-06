@@ -1,0 +1,8 @@
+FWUM extension Version 1.3
+
+IPMC Info
+=========
+Manufacturer Id           : 47488
+Board Id                  : 43707
+Firmware Revision         : 2.04
+FWUM Firmware Get Info returned c1

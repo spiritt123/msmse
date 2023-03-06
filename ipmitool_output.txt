@@ -1,0 +1,32 @@
+ipmitool chassis power status
+Chassis Power is on
+
+
+
+➜  ~ ipmitool sel
+SEL Information
+Version          : 1.5 (v1.5, v2 compliant)
+Entries          : 512
+Free Space       : 0 bytes
+Percent Used     : 100%
+Last Add Time    : 02/06/2023 06:24:32
+Last Del Time    : 02/06/2023 06:24:32
+Overflow         : true
+Supported Cmds   : 'Reserve' 'Get Alloc Info'
+# of Alloc Units : 512
+Alloc Unit Size  : 18
+# Free Units     : 0
+Largest Free Blk : 0
+Max Record Size  : 18
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+
+
+<%= form_with url: "set_user_ipmi", method: :post do |form| %>
+  <div>
+    <%= text_field_tag :data, value = "", required: true, :placeholder => "data" %>
+	<%= form.select :id_user, ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"] %>
+    <%= form.submit "Set Name", id:"button1" %>
+    <%= form.submit "Set Pass", id:"button2" %>
+    <%= form.submit "Eneble/Disable", id:"button3" %>
+  </div>
+<% end %>
+
+
+<% data1 = %x[cat it_user_list_1.txt]%>
+
+<% data1.split(/[\n|\r]/).each do |d1| %>
+  <pre><p> <%= d1 %> </p></pre>
+<% end %>

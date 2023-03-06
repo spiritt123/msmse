@@ -1,0 +1,255 @@
+<head>
+  <title>MSMSE</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style type="text/css">
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    header{
+      padding: 18px;
+      margin-bottom: 50px;
+      color: white;
+      background-color: #ac0000c4;
+      min-height: 30px;
+      font-size: 24px;
+    }
+    #left-header{
+      background-color: #04055000;
+      padding: 0;
+      float: left;
+    }
+    #right-header{
+      background-color: #04055000;
+      padding: 0;
+      float: right;
+    }
+    a.link-logout{
+      color: white;
+    }
+    #button{
+      max-width: 100px;
+    }
+    .btn{
+      max-width: 100px;
+    }
+    #container {
+      width:960px;
+      margin:0 auto;
+      background: url("faux-columns.png") repeat-y;
+      overflow: hidden;
+    }
+    #sidebar {
+      float:left;
+      width:340px;
+    }
+    #content {
+      float:left;
+      width:60%;
+    }
+    div#container {
+      width: 100vw;
+      margin: 0
+    }
+    div#sidebar {
+      height: 60vh;
+      width: 20vw;
+      overflow:scroll;
+      padding-left: 30px;
+    }
+    .text{
+      font-size: 24px;
+    }
+    label {
+      padding: 0 10px;
+    }
+
+    table{
+      margin: 0 auto;
+      min-width: 50vw;
+    }
+    td{
+      border: 2px solid;
+    }
+
+    #form_voltage {
+      display:none;
+    }
+    #form_event {
+      display:none;
+    }
+    #form_info {
+      display:none;
+    }
+    #form_power {
+      display:none;
+    }
+    #form_lan {
+      display:none;
+    }
+    #form_users {
+      display:none;
+    }
+    #server_menu {
+        //display:none;
+    }
+
+    .btn_form {
+      width: 100%;
+    }
+    #menu {
+      display: flex;
+      padding: 0;
+      justify-content: center;
+    }
+
+  </style>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>
+    var is_ip = true;
+    function init()
+    {
+      let els = document.getElementsByClassName('alias');
+      for (var i = 0; i < els.length; i++) {
+        els[i].style.display = "none";
+      }
+    }
+    window.addEventListener('load', function () {
+      init();
+      document.getElementById('lnk_push').click(); 
+    })
+    window.onload = init();
+
+    function chengeIPandAlias()
+    {
+
+      is_ip = !is_ip;
+      if (is_ip) {
+        let els = document.getElementsByClassName('alias');
+        for (var i = 0; i < els.length; i++) {
+          els[i].style.display = "none";
+        }
+        els = document.getElementsByClassName('ip');
+        for (var i = 0; i < els.length; i++) {
+          els[i].style.display = "";
+        }
+      }
+      else {
+        let els = document.getElementsByClassName('ip');
+        for (var i = 0; i < els.length; i++) {
+          els[i].style.display = "none";
+        }
+        els = document.getElementsByClassName('alias');
+        for (var i = 0; i < els.length; i++) {
+          els[i].style.display = "";
+        }
+      }
+    }
+  </script>
+  <script>
+    function hide_all()
+    {
+      $(form_info).hide();
+      $(form_event).hide();
+      $(form_power).hide();
+      $(form_voltage).hide();
+      $(form_lan).hide();
+      $(form_users).hide();
+    }
+    $(document).on("click","#btn_voltage",function(){ hide_all(); $(form_voltage).show();});
+    $(document).on("click","#btn_info",function()   { hide_all(); $(form_info).show();});
+    $(document).on("click","#btn_event",function()  { hide_all(); $(form_event).show();});
+    $(document).on("click","#btn_power",function()  { hide_all(); $(form_power).show();});
+    $(document).on("click","#btn_lan",function()  { hide_all(); $(form_lan).show();});
+    $(document).on("click","#btn_users",function()  { hide_all(); $(form_users).show();});
+    $(document).on("click","#btn_edit_servers",function()  { $(menu).hide(); $(server_menu).show();});
+
+    $(document).on("click","#lnk_push",function(){
+      $("#lnk_push").bind("ajax:success", function(xhr, data, status) {
+        $("#response").html(status);
+        var xmlString = (data.div_contents['div#Content']);
+        xmlString = xmlString.replace(/(\r\n|\n|\r|\\n)/gm, "");
+        xmlString = xmlString.replace(/(\\)/gm, "");
+        $(folder).html(xmlString); //data.div_contents['div#Content']
+      });
+    });
+    
+  </script>
+
+</head>
+
+
+<header>
+  <p id="left-header" class="Name">
+    Username : <%= $username = User.where(:name =>current_user.name).first.name %>
+     | Rank : <%= User.where(:name =>current_user.name).first.rank %>
+  </p>
+  <p id="right-header" class="Name">
+    <%= link_to "Log Out", logout_path, class: "link-logout" %>
+  </p>
+
+</header>
+
+<div class="text">
+  <input type="checkbox" onclick="chengeIPandAlias();"/>
+  ip/alias
+
+  <%= button_tag "Edit_servers", id: "btn_edit_servers" %>
+</div>
+
+<div id="container" class="text">
+  <div id="sidebar">
+    <% Server.where(:id => current_user.name).each do |server| %>
+      <div>
+        <div class="ip">
+          <div style="margin-top: -7px; width: 10px; float: left;">⎣</div>
+          <%= label_tag 'ip : ' "#{server.ip}" %>
+        </div>
+        <div class="alias">
+          <div style="margin-top: -7px; width: 10px; float: left;">⎣</div>
+          <%= label_tag 'alias : ' "#{server.alias}" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div id="content">
+   <%= render "form_server" %>
+  </div>
+  
+
+  
+  <div id="server_menu">
+    
+    <div id="scan">
+      <%= form_with url: "scan", method: :post, remote: true do |form| %>
+      <div>
+        <%= text_field_tag :ip, value = "", :placeholder => "ip" %>
+        <%= text_field_tag :port, value = "", :placeholder => "port" %>
+        <%= form.submit %>
+      </div>
+      <% end %>
+    </div>
+
+    <div id="server">
+      
+    </div>
+
+    <div id="folder">
+      
+    </div>
+
+    <%= link_to "Refresh data", home_scan_path, remote: true, id: "lnk_push" %>
+
+
+    <div id="download_options">
+        <%= link_to "download", home_download_path %>
+    </div>
+
+  </div>
+
+</div>

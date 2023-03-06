@@ -1,0 +1,17 @@
+
+
+<h1>Основаня информация</h1>
+
+<% data1 = %x[cat it_mc_info.txt]%>
+
+<% data1.split(/[\n|\r]/).each do |d1| %>
+  <p> <%= d1 %> </p>
+<% end %>
+
+<h1>Версия прошивки</h1>
+
+<% data2 = %x[cat it_fwu_info.txt]%>
+
+<% data2.split(/\n/).each do |d2| %>
+  <p> <%= d2 %> </p>
+<% end %>

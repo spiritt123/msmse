@@ -1,0 +1,26 @@
+<table>
+<tr>
+  <td>№</td>
+  <td>Дата</td>
+  <td>Время</td>
+  <td>Напряжение</td>
+  <td></td>
+  <td>Статус</td>
+  <td></td>
+</tr>
+  <% data = %x[cat it_sel_elist.txt]%>
+  <% data = data.split(/\n/)%>
+  <% data.each do |d| %>
+    <% @d = d.split(/\|/)%>
+    <tr>
+      <td><%= @d[0] %></td>
+      <td><%= @d[1] %></td>
+      <td><%= @d[2] %></td>
+      <td><%= @d[3] %></td>
+      <td><%= @d[4] %></td>
+      <td><%= @d[5] %></td>
+      <td><%= @d[6] %></td>
+    </tr>
+  <% end %>
+
+</table>

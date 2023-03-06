@@ -12,12 +12,16 @@ class ApplicationController < ActionController::Base
 
   def require_auto
     current_user
-    if @current_user != nil && @current_user.rank == 0
-        redirect_to home_root_url
-    elsif (@current_user != nil) && ((1..1000).include? @current_user.rank)
-        redirect_to home_admin_url
+    if @current_user == nil
+        redirect_to login_path
     else
-      redirect_to login_path
+      if @current_user.rank == 0
+        redirect_to home_root_url
+      elsif (@current_user != nil) && ((1..1000).include? @current_user.rank)
+        redirect_to home_admin_url
+      else
+        redirect_to home_user_url
+      end
     end
   end
 end

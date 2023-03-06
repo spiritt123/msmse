@@ -1,0 +1,14 @@
+
+
+<%= data =  %x[cat it_chassis_power_status.txt]%>
+
+<div id="menu" style="width: 30%">
+  <%= form_with url: "set_power_ipmi", method: :post do |form| %>
+  <div>
+    <%= form.submit "Power ON", id:"button1" %>
+    <%= form.submit "Power OFF", id:"button1" %>
+    <%= form.submit "Power CYCLE", id:"button1" %>
+    <%= form.submit "Power RESET", id:"button1" %>
+   </div>
+<% end %>
+</div>

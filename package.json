@@ -1,6 +1,12 @@
 {
   "dependencies": {
-    "jquery": "^3.6.3",
-    "yarn": "^1.22.19"
+    "@rails/webpacker": "^5.4.4",
+    "jquery": "^3.6.3"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^4.11.1"
+  },
+  "engines": {
+    "node": "14.19.0"
   }
 }

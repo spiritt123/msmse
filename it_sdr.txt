@@ -1,0 +1,36 @@
+CPU1 Temp        | 0x00              | ok
+CPU2 Temp        | 0x00              | ok
+System Temp      | 26 degrees C      | ok
+CPU1 Vcore       | 0.94 Volts        | ok
+CPU2 Vcore       | 0.94 Volts        | ok
++5V              | 5.09 Volts        | ok
++5VSB            | 5.09 Volts        | ok
++12V             | 12.19 Volts       | ok
+-12V             | -11.80 Volts      | ok
++3.3V            | 3.17 Volts        | ok
++3.3VSB          | 3.24 Volts        | ok
+VBAT             | 3.19 Volts        | ok
+Fan1             | 8370 RPM          | ok
+Fan2             | 8370 RPM          | ok
+Fan3             | 8370 RPM          | ok
+Fan4             | 8370 RPM          | ok
+Fan5             | no reading        | ns
+Fan6             | no reading        | ns
+Fan7             | no reading        | ns
+Fan8             | no reading        | ns
+P1-DIMM1A Temp   | 30 degrees C      | ok
+P1-DIMM1B Temp   | no reading        | ns
+P1-DIMM2A Temp   | 30 degrees C      | ok
+P1-DIMM2B Temp   | no reading        | ns
+P1-DIMM3A Temp   | 31 degrees C      | ok
+P1-DIMM3B Temp   | no reading        | ns
+P2-DIMM1A Temp   | 28 degrees C      | ok
+P2-DIMM1B Temp   | no reading        | ns
+P2-DIMM2A Temp   | 28 degrees C      | ok
+P2-DIMM2B Temp   | no reading        | ns
+P2-DIMM3A Temp   | 27 degrees C      | ok
+P2-DIMM3B Temp   | no reading        | ns
+Intrusion        | 0x00              | ok
+PS Status        | 0x00              | ok
+
+
