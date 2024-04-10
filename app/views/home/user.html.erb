@@ -53,7 +53,8 @@
     }
     div#container {
       width: 100vw;
-      margin: 0
+      margin: 0;
+      height: 90vh;
     }
     div#sidebar {
       height: 60vh;
@@ -106,6 +107,20 @@
       padding: 0;
       justify-content: center;
     }
+      .color2 {
+        background-color: #e80a0a30;
+      }
+
+      .background {
+        align-items: center;
+        background-color: #45c55f;
+        border-radius: 50%;
+        display: flex;
+        height: 20px;
+        justify-content: center;
+        width: 20px;
+        margin-top: 4px;
+      }
 
   </style>
 
@@ -160,6 +175,7 @@
       $(form_voltage).hide();
       $(form_lan).hide();
       $(form_users).hide();
+      $(server_menu).hide();
     }
     $(document).on("click","#btn_voltage",function(){ hide_all(); $(form_voltage).show();});
     $(document).on("click","#btn_info",function()   { hide_all(); $(form_info).show();});
@@ -167,7 +183,7 @@
     $(document).on("click","#btn_power",function()  { hide_all(); $(form_power).show();});
     $(document).on("click","#btn_lan",function()  { hide_all(); $(form_lan).show();});
     $(document).on("click","#btn_users",function()  { hide_all(); $(form_users).show();});
-    $(document).on("click","#btn_edit_servers",function()  { $(menu).hide(); $(server_menu).show();});
+    $(document).on("click","#btn_edit_servers",function()  { hide_all(); $(server_menu).show();});
 
     $(document).on("click","#lnk_push",function(){
       $("#lnk_push").bind("ajax:success", function(xhr, data, status) {
@@ -175,7 +191,7 @@
         var xmlString = (data.div_contents['div#Content']);
         xmlString = xmlString.replace(/(\r\n|\n|\r|\\n)/gm, "");
         xmlString = xmlString.replace(/(\\)/gm, "");
-        $(folder).html(xmlString); //data.div_contents['div#Content']
+        $(scan_output).html(xmlString); //data.div_contents['div#Content']
       });
     });
     
@@ -204,14 +220,24 @@
 
 <div id="container" class="text">
   <div id="sidebar">
-    <% Server.where(:id => current_user.name).each do |server| %>
+    <% @i = 0%>
+    <% Server.where(:id_user => current_user.name).limit(3).each do |server| %>  
+      <%@i += 1%>
       <div>
+        <% if @i == 2 %>
+        <div class="ip color2" >
+        <%else%>
         <div class="ip">
-          <div style="margin-top: -7px; width: 10px; float: left;">⎣</div>
-          <%= label_tag 'ip : ' "#{server.ip}" %>
+        <%end%>
+          <div style="margin-top: -10px; width: 10px; float: left;">⎣</div>
+          <div style="display: flex; flex-direction: row;">
+          <%= label_tag 'ip : ' "#{server.ip}" %> 
+          <span class="background">
+          </span>
+          </div>
         </div>
         <div class="alias">
-          <div style="margin-top: -7px; width: 10px; float: left;">⎣</div>
+          <div style="margin-top: -10px; width: 10px; float: left;">⎣</div>
           <%= label_tag 'alias : ' "#{server.alias}" %>
         </div>
       </div>
@@ -219,13 +245,45 @@
   </div>
   <div id="content">
    <%= render "form_server" %>
-  </div>
+  
   
 
   
   <div id="server_menu">
+    <br>
+    <br>
+    <div id="server">
+      <h3>Сервер:</h3>
+      <%= form_with url: "add_server", method: :post, remote: true do |form| %>
+      <div>
+        <%= text_field_tag :ip, value = "", required: true, :placeholder => "ip" %>
+        <%= text_field_tag :alias, value = "", :placeholder => "alias" %>
+        <%= form.hidden_field :id, value: $username %>
+        <%= form.submit %>
+      </div>
+      <% end %>
+    </div>
+
+    <br>
+    <br>
+
+    <div id="folder">
+      <h3>Директории:</h3>
+      <%= form_with url: "add_folder", method: :post, remote: true do |form| %>
+      <div>
+        <%= text_field_tag :id, value = "", required: true, :placeholder => "name_folder" %>
+        <%= text_field_tag :id_server, value = "", :placeholder => "server" %>
+        <%= text_field_tag :id_group, value = "", :placeholder => "group" %>
+        <%= form.submit %>
+      </div>
+      <% end %>
+    </div>
+
+    <br>
+    <br>
     
     <div id="scan">
+      <h3>Сканирование:</h3>
       <%= form_with url: "scan", method: :post, remote: true do |form| %>
       <div>
         <%= text_field_tag :ip, value = "", :placeholder => "ip" %>
@@ -233,16 +291,10 @@
         <%= form.submit %>
       </div>
       <% end %>
+      <div id="scan_output">
+        
+      </div>
     </div>
-
-    <div id="server">
-      
-    </div>
-
-    <div id="folder">
-      
-    </div>
-
     <%= link_to "Refresh data", home_scan_path, remote: true, id: "lnk_push" %>
 
 
@@ -251,5 +303,5 @@
     </div>
 
   </div>
-
+  </div>
 </div>

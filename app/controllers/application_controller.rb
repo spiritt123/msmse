@@ -1,23 +1,25 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user
-  before_action :require_auto, only: [:index]
+  before_action :require_auth, only: [:index]#, :user, :admin, :root_index]
+  #after_action :require_auth, only: [:root, :admin, :user]
+  @cur_user = nil
 
   def current_user
     if session[:user_id]
-      @current_user ||= User.find(session[:user_id])
+      @cur_user ||= User.find(session[:user_id])
     else
-      @current_user = nil
+      @cur_user = nil
     end
   end
 
-  def require_auto
+  def require_auth
     current_user
-    if @current_user == nil
+    if @cur_user == nil
         redirect_to login_path
     else
-      if @current_user.rank == 0
+      if @cur_user.rank == 0
         redirect_to home_root_url
-      elsif (@current_user != nil) && ((1..1000).include? @current_user.rank)
+      elsif (@cur_user != nil) && ((1..1000).include? @cur_user.rank)
         redirect_to home_admin_url
       else
         redirect_to home_user_url

@@ -19,7 +19,9 @@ COPY Gemfile* $APP_PATH/
 RUN bundle install
 
 COPY . .
-EXPOSE 3000
 
+RUN yarn install --check-files
+
+EXPOSE 3000
 
 CMD rails s -b 0.0.0.0

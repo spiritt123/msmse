@@ -13,11 +13,16 @@ Rails.application.routes.draw do
   post 'home/set_user_ipmi'
   post 'home/set_lan_ipmi'
   post 'home/set_power_ipmi'
+  post 'home/add_server'
+  post 'home/add_folder'
   get 'home/scan'
   post 'home/scan'
 
   get 'home/download'
 
+  get 'sessions/new'
+  get 'sessions/create'
+  get 'sessions/destroy'
 
 
 

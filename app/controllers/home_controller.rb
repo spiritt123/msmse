@@ -128,9 +128,28 @@ class HomeController < ApplicationController
         format.html { redirect_to home_user_url, notice: "User was successfully updated."  }
         format.js {}
     end
-    p @nmap_data
-    puts "\n\n\n\nsdf\n\n\n\n"
-    
-  end   
+  end  
 
+  def add_server
+    @s = Server.create(:id_user => params[:id], :ip => params[:ip], :alias => params[:alias])
+    (13..130).each do |x|
+      Server.create(:id_user => params[:id], :ip => "127.0.0.#{x}", :alias => "server[#{x}]")
+    end
+    respond_to do |format|
+      if @s
+        format.html { redirect_to home_user_url, notice: "User was successfully updated." }
+        format.json { render :user, status: :ok, location: @s }
+      end
+    end
+  end
+
+  def add_folder
+    @f = Folder.create(:id => params[:id], :ip => params[:id_server], :id_group => params[:id_group])
+    respond_to do |format|
+      if @f
+        format.html { redirect_to home_user_url, notice: "User was successfully updated." }
+        format.json { render :user, status: :ok, location: @s }
+      end
+    end
+  end
 end

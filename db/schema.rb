@@ -22,11 +22,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_112602) do
 
   create_table "servers", id: false, force: :cascade do |t|
     t.string "id"
+    t.string "id_user"
     t.string "ip"
     t.string "alias"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["id"], name: "index_servers_on_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
